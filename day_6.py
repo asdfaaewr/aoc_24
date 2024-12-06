@@ -25,6 +25,7 @@ while True:
 
 print(len(v))
 
+# part2
 t = 0
 for p in v:
     if p == start:

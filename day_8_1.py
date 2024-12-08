@@ -11,8 +11,8 @@ for r in range(len(data)):
         d[data[r][c]].append((r, c))
 
 s = set([])    
-for c, antennas in d.items():
-    if c == '.': continue
+for char, antennas in d.items():
+    if char == '.': continue
     for (r, c), (r2, c2) in itertools.combinations(antennas, 2):
         if r - (r2-r) in range(len(data)) and c - (c2-c) in range(len(data[-1])):
             s.add((r - (r2-r), c - (c2-c)))

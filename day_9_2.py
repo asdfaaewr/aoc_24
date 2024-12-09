@@ -18,11 +18,10 @@ for num_idx, (start, end, id) in enumerate(nums):
     for free_idx, (free_start, free_length) in enumerate(free):
         if end-start+1 <= free_length and start > free_start:
             free_new = free[:]
-            free_new.append((start, end-start+1))
             free_new[free_idx] = (free_start + end-start+1, free_length - (end-start+1))
             nums_temp[num_idx] = (free_start, free_start + end - start,id)
             break
-    free = sorted(free_new)
+    free = free_new
 
 t = 0
 for start, end, id in nums_temp:

@@ -5,6 +5,17 @@ with open('in_' + str(day) + '_test' * test + '.txt') as file:
 rows, cols = len(data), len(data[-1])
 dirs = ((0,1), (1,0), (-1,0), (0,-1))
 
+def check_sides(s):
+    t = 0 
+    for r in range(min(s)[0], max(s)[0]+2):
+        for c in range(min([b for a,b  in s]), 2+max([b for a,b  in s])): 
+
+            if ((r,c) in s) == ((r,c-1) in s) and ((r-1,c) in s) == ((r-1,c-1) in s): continue
+            if ((r,c) in s) == ((r-1,c) in s): continue
+            if ((r,c) in s) != ((r-1,c) in s): t+=1
+
+    return 2*t
+
 covered = set()
 t = 0
 for r in range(rows):
@@ -13,24 +24,26 @@ for r in range(rows):
 
         stack = [(r,c)]
         covered.add((r, c))
-        area, circ = 0, 0
+        area = 0
+        curr_set = set([(r, c)])
 
         while stack:
             x, y = stack.pop()
             area += 1
 
             for dx, dy in dirs:
-                if x+dx not in range(rows) or y+dy not in range(cols) or data[x][y] != data[x+dx][y+dy]:
-                    circ += 1
-                    continue
-
+                if x+dx not in range(rows): continue
+                if y+dy not in range(cols): continue
+                if data[x][y] != data[x+dx][y+dy]: continue
                 if (x+dx, y+dy) in covered: continue
 
                 stack.append((x+dx, y+dy))
                 covered.add((x+dx, y+dy))
-
-        t += circ * area
-
-
+                curr_set.add((x+dx, y+dy))
+               
+        t += area * check_sides(curr_set)
 
 print(t)
+
+
+

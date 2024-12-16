@@ -29,5 +29,3 @@ for start, end, id in nums_temp:
         t += i*id
 
 print(t)
-
-

@@ -14,8 +14,7 @@ def is_possible(d):
         if d.startswith(tow):
             if len(d) == len(tow):
                 w += 1
-            if (len(d) > len(tow)) and (q:=is_possible(d[len(tow):])):
-                w += q 
+            w += is_possible(d[len(tow):]) 
     return w
 
 
